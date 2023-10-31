@@ -6,7 +6,8 @@
   --matr-navbar-bg: darkblue;
   --matr-navbar-bg-rgb: 0, 0, 139;
   --matr-navbar-text-color: white;
-  --matr-navbar-highlight-text: yellow;
+  --matr-navbar-highlight-text: brown;
+  --matr-navbar-bg: brown;
 }
 
 /* Change bootstrap variable values.
@@ -15,13 +16,8 @@
 body {
   --bs-dark: var(--matr-navbar-bg);
   --bs-dark-rgb: var(--matr-navbar-bg-rgb);
-  background: fixed center url("images/clouds.png");
+  background: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGA-Btd5-1Ayd0hHT5gixcsPgQqAplKyPl3_LENMw-aA&s");
   background-size: cover;
-}
-
-/* Set the alert background on the signin and signup pages. */
-#signin-page .alert-light, #signup-page .alert-light {
-  --bs-alert-bg: var(--matr-navbar-bg);
 }
 
 body .navbar {
@@ -30,6 +26,17 @@ body .navbar {
   --bs-navbar-brand-hover-color: var(--matr-navbar-highlight-text);
   --bs-navbar-color: var(--matr-navbar-text-color);
   --bs-navbar-hover-color: var(--matr-navbar-highlight-text);
+}
+
+.navbar a.nav-link.active {
+  color: var(--matr-navbar-highlight-text);
+}
+.bg-dark a.dropdown-item {
+  color: var(--matr-navbar-bg);
+}
+/* Set the alert background on the signin and signup pages. */
+#signin-page .alert-light, #signup-page .alert-light {
+  --bs-alert-bg: var(--matr-navbar-bg);
 }
 
 /* Define custom styles */
