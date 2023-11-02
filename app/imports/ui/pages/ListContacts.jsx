@@ -1,30 +1,43 @@
 import React from 'react';
+import { Meteor } from 'meteor/meteor';
 import { Col, Container, Row } from 'react-bootstrap';
-import { PeopleFill, FileEarmarkTextFill, Calendar2CheckFill } from 'react-bootstrap-icons';
-/* A simple static component to render some text for the landing page. */
-const Landing = () => (
-  <Container id="landing-page" className="py-3">
-    <Row className="align-middle text-center">
-      <Col xs={4}>
-        <PeopleFill size={100} />
-        <h1>Multiple Users</h1>
-        <h5>This address book enables any number of users to register and save their business contacts. You can only see the contacts you have created.</h5>
-      </Col>
+import { useTracker } from 'meteor/react-meteor-data';
+import LoadingSpinner from '../components/LoadingSpinner';
+import Contact from '../components/Contact';
+import { Contacts } from '../../api/contact/Contacts';
 
-      <Col xs={4}>
-        <FileEarmarkTextFill size={100} />
-        <h1>Contact Details</h1>
-        <h5>For each contact, you can save their name, address, and phone number.</h5>
-      </Col>
+/* Renders a table containing all of the Stuff documents. Use <StuffItem> to render each row. */
+const ListContacts = () => {
+  // useTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker
+  const { ready, contacts } = useTracker(() => {
+    // Note that this subscription will get cleaned up
+    // when your component is unmounted or deps change.
+    // Get access to Stuff documents.
+    const subscription = Meteor.subscribe(Contacts.userPublicationName);
+    // Determine if the subscription is ready
+    const rdy = subscription.ready();
+    // Get the Stuff documents
+    const contactItems = Contacts.collection.find({}).fetch();
+    return {
+      contacts: contactItems,
+      ready: rdy,
+    };
+  }, []);
 
-      <Col xs={4}>
-        <Calendar2CheckFill size={100} />
-        <h1>Timestamped Notes</h1>
-        <h5>Each time you make contact with a contact, you can write a note that summarizes the conversation. This note is saved along with a timestamp with the contact.</h5>
-      </Col>
+  return (ready ? (
+    <Container className="py-3">
+      <Row className="justify-content-center">
+        <Col md={7}>
+          <Col className="text-center">
+            <h2>List Contacts</h2>
+          </Col>
+          <Row xs={1} md={2} lg={3} className="g-4">
+            {contacts.map((contact) => (<Col key={contact._id}><Contact contact={contact} /></Col>))}
+          </Row>
+        </Col>
+      </Row>
+    </Container>
+  ) : <LoadingSpinner />);
+};
 
-    </Row>
-  </Container>
-);
-
-export default Landing;
+export default ListContacts;
