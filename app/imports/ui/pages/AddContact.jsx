@@ -49,20 +49,12 @@ const AddContact = () => {
             <Card>
               <Card.Body>
                 <Row>
-                  <Col>
-                    <TextField name="firstName" />
-                  </Col>
-                  <Col>
-                    <TextField name="lastName" />
-                  </Col>
+                  <Col><TextField name="firstName" /></Col>
+                  <Col><TextField name="lastName" /></Col>
                 </Row>
                 <Row>
-                  <Col>
-                    <TextField name="address" />
-                  </Col>
-                  <Col>
-                    <TextField name="image" />
-                  </Col>
+                  <Col><TextField name="address" /></Col>
+                  <Col><TextField name="image" /></Col>
                 </Row>
                 <LongTextField name="description" />
                 <SubmitField />

@@ -16,7 +16,7 @@ const ListContactsAdmin = () => {
     const subscription = Meteor.subscribe(Contacts.adminPublicationName);
     // Determine if the subscription is ready
     const rdy = subscription.ready();
-    // Get the Stuff documents
+    // Get the Contact documents
     const contactItems = Contacts.collection.find({}).fetch();
     return {
       contacts: contactItems,
@@ -27,7 +27,7 @@ const ListContactsAdmin = () => {
   return (ready ? (
     <Container className="py-3">
       <Row className="justify-content-center">
-        <Col md={7}>
+        <Col>
           <Col className="text-center">
             <h2>List Contacts</h2>
           </Col>
